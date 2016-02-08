@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using PurePCLViewModel;
 
 using Xamarin.Forms;
 
@@ -10,16 +9,30 @@ namespace ThreeLayerXF {
     public class App : Application
     {
 
-        private readonly PurePCLVieModel _model;
+        private readonly PurePCLViewModel.Model _model;
 
         public App()
         {
-            _model = new PurePCLViewModel();
-            var button = new Button() {Text = "Test PCL",
+            _model = new PurePCLViewModel.Model();
+
+            BindingContext = _model;
+            var boundLabel = new Label
+            {
+                XAlign = TextAlignment.Center,
+                Text = ""
+            };
+            boundLabel.SetBinding(Label.TextProperty, new Binding("TheAnswer"));
+
+            var button = new Button()
+            {
+                Text = "What is the Question?",
                 VerticalOptions = LayoutOptions.CenterAndExpand,
                 HorizontalOptions = LayoutOptions.CenterAndExpand,
             };
-            button.Clicked += (s, e) => button.Text = "Clicked: " + clicked++;
+            button.Clicked += (s, e) =>
+            {
+                _model.AskTheQuestion();
+            };
 
             // The root page of your application
             MainPage = new ContentPage
@@ -33,11 +46,7 @@ namespace ThreeLayerXF {
                             Text = "Welcome to ThreeLayer PCL in Forms!"
                         },
                         button,
-                        new Label {
-                            XAlign = TextAlignment.Center,
-                            Text = " "
-                        }
-
+                        boundLabel
                     }
                 }
             };
