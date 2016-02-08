@@ -17,4 +17,13 @@ Diving into giving PCL layering a full workout.
 * `PurePCLViewModel` Sandwich filling invoked by `ThreeLayerXF`
 * `NativeCallingBottom` layer which will invoke native code from PCL (somehow)
 
-`PurePCLViewModel` was created using the Cross-Platform _Class Library (Xamarin.Forms) template in VS2015.
+`PurePCLViewModel` and `NativeCallingBottom` both created using the VS2015 template _Class Library (Portable)_ with default targets to match the Xamarin Forms PCL default:
+
+* .Net Framework 4.5
+* Windows 8
+* Windows Phone Silverlight 8
+* Windows Phone 8.1
+* Xamarin.Android
+* Xamarin.iOS
+* Xamarin.iOS (Classic)
+

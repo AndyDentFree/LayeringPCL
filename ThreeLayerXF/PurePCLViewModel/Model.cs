@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using NativeCallingBottom;
 
 namespace PurePCLViewModel
 {
@@ -12,14 +13,16 @@ namespace PurePCLViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
+        private readonly NativeCaller _modelModel;
+
+        public Model()
+        {
+            _modelModel = new NativeCaller();
+        }
+
         public void AskTheQuestion()
         {
-            // TODO call another PCL layer
-            if (string.IsNullOrEmpty(TheAnswer))
-                TheAnswer = "dunno";
-            else 
-                TheAnswer = "";
-
+            TheAnswer = $"The Answer is {_modelModel.AnswerValue()}";
             if (PropertyChanged != null)
                 PropertyChanged(this, new PropertyChangedEventArgs("TheAnswer"));  // normally woudl be setter
         }
